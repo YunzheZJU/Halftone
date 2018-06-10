@@ -1,0 +1,55 @@
+.mt-5rem {
+    margin-top: 5rem;
+}
+
+.file-input {
+    position: absolute;
+    opacity: 0;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.file-hint {
+    color: #8d8d8d!important;
+    font-size: 1.5rem;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.file-box {
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border: 2px solid #8d8d8d;
+    border-right-width: 0;
+    height: 50px;
+}
+
+.btn-box {
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    border: 2px solid #2233ff;
+    background-color: #2233ff;
+    transition: background-color 0.5s;
+    height: 50px;
+}
+
+.btn-box:hover {
+    background-color: #4bcb29;
+}
+
+.btn-text {
+    color: #ffffff !important;
+    font-size: 1.5rem;
+    border: none;
+    background-color: inherit;
+    line-height: 1.5;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.matched {
+    border: 2px dashed red;
+    border-radius: 5px;
+}
