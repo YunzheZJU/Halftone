@@ -3,7 +3,6 @@ import os
 import config
 import numpy as np
 
-from logger import logger
 from PIL import Image
 
 samples = []
@@ -35,7 +34,7 @@ def read_images(test=False):
                 samples.append(np.asarray(Image.open(os.path.join(config.GLOBAL['IMAGE_PATH'], str(i) + ".jpg"))))
         return True
     except StandardError as ex:
-        logger.error(ex.message)
+        print ex.message
 
 
 def calculate_distance(file_in_temp_folder):

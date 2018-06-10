@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Halftone</title>
+    <link type="text/css" href="../static/css/style.css" rel="stylesheet">
+</head>
+<body>
+<div id="first-page">
+    <div id="title">Halftone QRCode</div>
+    <form id="form" method="post" enctype="multipart/form-data">
+        <h1 id="text-input" contenteditable spellcheck="false" data-content="Halftone QRCode">Halftone QRCode</h1>
+        <div class="clear"></div>
+        <div id="image-box">
+            <div id="image-input-box">
+                <img src="" id="image-preview">
+                <input type="file" size="2" id="image-input" accept="image/*" name="image" style="display: none;">
+            </div>
+            <div id="image-result-box">
+                <img src="" id="image-result">
+            </div>
+        </div>
+    </form>
+</div>
+<script src="../static/include/jquery.js"></script>
+<script src="../static/scripts/halftone.js"></script>
+</body>
+</html>
