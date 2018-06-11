@@ -4,6 +4,7 @@ const imageBox = document.getElementById('image-box');
 const imageInput = document.getElementById('image-input');
 const imagePreview = document.getElementById('image-preview');
 const imageResult = document.getElementById('image-result');
+const imageResultBox = document.getElementById('image-result-box');
 
 const logMessage = (() => {
     const maxCount = 8;
@@ -65,7 +66,8 @@ const postData = () => {
         if (response['status'] === 1) {
             const filePath = response['filepath'];
             imageResult.src = `/temp/${filePath}`;
-            document.getElementById('image-result-box').style.width = `400px`;
+            imageResultBox.style.width = `30vw`;
+            imageResultBox.style.overflow = `visible`;
         } else {
             throw new Error(response['message']);
         }

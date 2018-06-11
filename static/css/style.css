@@ -42,16 +42,16 @@ body {
 #image-box {
     display: flex;
     width: 100%;
-    overflow: hidden;
+    /*overflow: hidden;*/
     justify-content: space-around;
     margin: auto;
     transition: width 2s ease;
     white-space: nowrap;
-    border-radius: 50px;
     border: 5px dashed transparent;
 }
 
 #image-box.drag-over {
+    border-radius: 50px;
     border-color: #4C657E;
 }
 
@@ -76,7 +76,9 @@ body {
 #image-box > div {
     text-align: center;
     transition: all 1s ease;
-    overflow: hidden;
+    height: 30vw;
+    max-width: 400px;
+    max-height: 400px;
 }
 
 #image-box > div > img {
@@ -86,7 +88,12 @@ body {
     max-height: 400px;
 }
 
+#image-input-box {
+      width: 30vw;
+}
+
 #image-result-box {
+    overflow: hidden;
     width: 0;
 }
 
