@@ -25,7 +25,6 @@ def euclid():
 @app.route('/calculate', methods=['POST'])
 def calculate():
     result = {'status': -1}
-    print request.form
     if 'image' in request.files:
         # Save image file to /temp/
         m = hashlib.md5()
