@@ -1,11 +1,8 @@
 # -*- coding: utf-8 -*-
-import hashlib
-import time
 
 from utils import *
-from flask import Flask, render_template, request, json, send_from_directory
+from flask import Flask, render_template, request, json, send_from_directory, url_for
 from flask_uploads import UploadSet, configure_uploads, IMAGES, patch_request_class
-
 
 app = Flask(__name__)
 generate_global(app.root_path)
@@ -18,7 +15,6 @@ app.config.update(dict(
 photos = UploadSet('photos', IMAGES)
 configure_uploads(app, photos)
 patch_request_class(app)
-read_images(test=True)
 
 
 @app.route('/halftone')
@@ -36,14 +32,19 @@ def calculate():
         m.update(str(time.time()))
         filename = photos.save(request.files['image'], name=m.hexdigest() + ".")
         # Extract
-        text = request.form['text']
-        # TODO: Process and get result
-        pass
-        # Output
-        result = {
-            'status': 1,
-            'filepath': filename,
-        }
+        text = request.form['text'].encode('utf-8')
+        # Process and get result
+        try:
+            filename = run_halftone(words=text, version=1, level='H', brightness=1.0, colorized=True, contrast=1.0,
+                                    picture=os.path.join(config.GLOBAL['TEMP_PATH'], filename))
+            # Output
+            result = {
+                'status': 1,
+                'filepath': filename,
+            }
+        except Exception as ex:
+            print ex
+            result['message'] = ex.message
     return json.dumps(result), [('Content-Type', 'application/json;charset=utf-8')]
 
 

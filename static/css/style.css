@@ -28,14 +28,14 @@ body {
 }
 
 #form {
-    width: 70rem;
+    width: 70vw;
 }
 
 #text-input {
-      content: attr(data-content);
+    content: attr(data-content);
     white-space: nowrap;
     text-align: center;
-    font-size: 6rem;
+    font-size: 8vw;
     color: #4C657E;
 }
 
@@ -43,7 +43,6 @@ body {
     display: flex;
     width: 100%;
     overflow: hidden;
-    flex-wrap: wrap;
     justify-content: space-around;
     margin: auto;
     transition: width 2s ease;
@@ -56,17 +55,35 @@ body {
     border-color: #4C657E;
 }
 
+#drop-indicator {
+    display: none;
+}
+
+#image-box.drag-over #drop-indicator {
+    display: block;
+    width: 70vw;
+    height: 30vw;
+    margin: 0;
+    position: absolute;
+    text-align: center;
+    line-height: 30vw;
+    font-size: 4rem;
+    opacity: .5;
+    color: green;
+    font-weight: bold;
+}
+
 #image-box > div {
     text-align: center;
-    margin-right: 3rem;
-    margin-left: 3rem;
     transition: all 1s ease;
     overflow: hidden;
 }
 
 #image-box > div > img {
-    width: 400px;
-    height: 400px;
+    width: 30vw;
+    height: 30vw;
+    max-width: 400px;
+    max-height: 400px;
 }
 
 #image-result-box {
@@ -75,4 +92,21 @@ body {
 
 .clear {
     width: 100%;
+}
+
+.message {
+    transform: translateX(100vw);
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: transform 10s linear;
+    white-space: nowrap;
+    color: white;
+    font-size: 2rem;
+    font-weight: bold;
+    line-height: 1.5;
+}
+
+.message.active {
+    transform: translateX(-100%);
 }

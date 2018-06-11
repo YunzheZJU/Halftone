@@ -7,13 +7,14 @@
 </head>
 <body>
 <div id="first-page">
-    <div id="title">Halftone QRCode</div>
+    <div id="title">Halftone QRCode v1.0</div>
     <form id="form" method="post" enctype="multipart/form-data">
         <h1 id="text-input" contenteditable spellcheck="false" data-content="Halftone QRCode">Halftone QRCode</h1>
         <div class="clear"></div>
         <div id="image-box">
+            <p id="drop-indicator">Drop files on me</p>
             <div id="image-input-box">
-                <img src="" id="image-preview">
+                <img src="../static/image/chrome_400.png" id="image-preview">
                 <input type="file" size="2" id="image-input" accept="image/*" name="image" style="display: none;">
             </div>
             <div id="image-result-box">
@@ -22,6 +23,7 @@
         </div>
     </form>
 </div>
+{#<div class="message">Wrong words! Make sure the characters are supported!</div>#}
 <script src="../static/include/jquery.js"></script>
 <script src="../static/scripts/halftone.js"></script>
 </body>
