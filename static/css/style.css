@@ -28,21 +28,22 @@ body {
 }
 
 #form {
+    position: absolute;
     width: 70vw;
+    z-index: 10;
 }
 
 #text-input {
     content: attr(data-content);
     white-space: nowrap;
     text-align: center;
-    font-size: 8vw;
+    font-size: 7vw;
     color: #4C657E;
 }
 
 #image-box {
     display: flex;
     width: 100%;
-    /*overflow: hidden;*/
     justify-content: space-around;
     margin: auto;
     transition: width 2s ease;
@@ -89,7 +90,7 @@ body {
 }
 
 #image-input-box {
-      width: 30vw;
+    width: 30vw;
 }
 
 #image-result-box {
@@ -116,4 +117,36 @@ body {
 
 .message.active {
     transform: translateX(-100%);
+}
+
+#setting-box {
+    right: 2rem;
+    position: absolute;
+    top: 7rem;
+    width: 20rem;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+ul li {
+    height: 9rem;
+}
+
+ul li label {
+    user-select: none;
+    display: block;
+    font-size: 3rem;
+    font-weight: bold;
+    color: #F29696;
+    opacity: .3;
+}
+
+ul li input {
+    font-size: 4rem;
+    width: 100%;
+    opacity: .5;
 }

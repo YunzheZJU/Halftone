@@ -5,6 +5,10 @@ const imageInput = document.getElementById('image-input');
 const imagePreview = document.getElementById('image-preview');
 const imageResult = document.getElementById('image-result');
 const imageResultBox = document.getElementById('image-result-box');
+const version = document.getElementById('version');
+const level = document.getElementById('level');
+const brightness = document.getElementById('brightness');
+const contrast = document.getElementById('contrast');
 
 const logMessage = (() => {
     const maxCount = 8;
@@ -51,6 +55,10 @@ const postData = () => {
 
     formData.append('image', image);
     formData.append('text', text);
+    formData.append('version', version.value);
+    formData.append('level', level.value);
+    formData.append('brightness', brightness.value);
+    formData.append('contrast', contrast.value);
 
     fetch('calculate', {
         method: 'POST',
@@ -166,3 +174,8 @@ imageInput.addEventListener(`change`, onFileChange);
 textInput.addEventListener(`input`, postData);
 
 observer.observe(imagePreview, config);
+
+version.addEventListener('change', postData);
+level.addEventListener('change', postData);
+brightness.addEventListener('change', postData);
+contrast.addEventListener('change', postData);

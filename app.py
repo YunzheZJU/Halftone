@@ -32,11 +32,21 @@ def calculate():
         m.update(str(time.time()))
         filename = photos.save(request.files['image'], name=m.hexdigest() + ".")
         # Extract
+        level_map = {
+            '0': 'L',
+            '2': 'M',
+            '1': 'H',
+            '3': 'Q',
+        }
         text = request.form['text'].encode('utf-8')
+        version = int(request.form['version'].encode('utf-8'))
+        level = level_map[request.form['level'].encode('utf-8')]
+        brightness = float(request.form['brightness'].encode('utf-8'))
+        contrast = float(request.form['contrast'].encode('utf-8'))
         # Process and get result
         try:
-            filename = run_halftone(words=text, version=1, level='H', brightness=1.0, colorized=True, contrast=1.0,
-                                    picture=os.path.join(config.GLOBAL['TEMP_PATH'], filename))
+            filename = run_halftone(words=text, version=version, level=level, brightness=brightness, contrast=contrast,
+                                    colorized=True, picture=os.path.join(config.GLOBAL['TEMP_PATH'], filename))
             # Output
             result = {
                 'status': 1,
