@@ -55,7 +55,7 @@ def run(words, version=1, level='H', picture=None, colorized=False, contrast=1.0
         from PIL import ImageEnhance, ImageFilter
 
         qr = Image.open(qr_name)
-        qr = qr.convert('RGBA') if colorized else qr
+        qr = qr.convert('RGBA') if colorized else qr.convert('L')
 
         bg0 = Image.open(bg_name).convert('RGBA')
         bg0 = ImageEnhance.Contrast(bg0).enhance(contrast)
@@ -66,7 +66,7 @@ def run(words, version=1, level='H', picture=None, colorized=False, contrast=1.0
         else:
             bg0 = bg0.resize(((qr.size[1] - 24) * int(bg0.size[0] / bg0.size[1]), qr.size[1] - 24))
 
-        bg = bg0 if colorized else bg0.convert('1')
+        bg = bg0 if colorized else bg0.convert('L')
 
         # aligs就是对齐用的右下角的框框
         aligs = []
@@ -78,8 +78,7 @@ def run(words, version=1, level='H', picture=None, colorized=False, contrast=1.0
                         for i in range(3 * (aloc[a] - 2), 3 * (aloc[a] + 3)):
                             for j in range(3 * (aloc[b] - 2), 3 * (aloc[b] + 3)):
                                 aligs.append((i, j))
-        print qr.size
-        print bg.size
+
         for i in range(qr.size[0] - 24):
             for j in range(qr.size[1] - 24):
                 if not (
