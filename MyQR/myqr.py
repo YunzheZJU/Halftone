@@ -55,18 +55,27 @@ def run(words, version=1, level='H', picture=None, colorized=False, contrast=1.0
         from PIL import ImageEnhance, ImageFilter
 
         qr = Image.open(qr_name)
-        qr = qr.convert('RGBA') if colorized else qr.convert('L')
+        qr = qr.resize((qr.size[0] * 3, qr.size[1] * 3))
+        qr = qr.convert('RGBA') if colorized else qr.convert('1')
 
         bg0 = Image.open(bg_name).convert('RGBA')
         bg0 = ImageEnhance.Contrast(bg0).enhance(contrast)
         bg0 = ImageEnhance.Brightness(bg0).enhance(brightness)
 
         if bg0.size[0] < bg0.size[1]:
-            bg0 = bg0.resize((qr.size[0] - 24, (qr.size[0] - 24) * int(bg0.size[1] / bg0.size[0])))
+            bg0 = bg0.resize(((qr.size[0] - 24 * 3), (qr.size[0] - 24 * 3) * int(bg0.size[1] / bg0.size[0])))
         else:
-            bg0 = bg0.resize(((qr.size[1] - 24) * int(bg0.size[0] / bg0.size[1]), qr.size[1] - 24))
+            bg0 = bg0.resize(((qr.size[1] - 24 * 3) * int(bg0.size[0] / bg0.size[1]), (qr.size[1] - 24 * 3)))
 
-        bg = bg0 if colorized else bg0.convert('L')
+        threshold = 127
+        table = []
+        for i in range(256):
+            if i < threshold:
+                table.append(0)
+            else:
+                table.append(1)
+        bg = bg0 if colorized else bg0.convert('L').point(table, '1')
+        bg.save(os.path.join(save_dir, 'bg.png'))
 
         # aligs就是对齐用的右下角的框框
         aligs = []
@@ -75,20 +84,21 @@ def run(words, version=1, level='H', picture=None, colorized=False, contrast=1.0
             for a in range(len(aloc)):
                 for b in range(len(aloc)):
                     if not ((a == b == 0) or (a == len(aloc) - 1 and b == 0) or (a == 0 and b == len(aloc) - 1)):
-                        for i in range(3 * (aloc[a] - 2), 3 * (aloc[a] + 3)):
-                            for j in range(3 * (aloc[b] - 2), 3 * (aloc[b] + 3)):
+                        for i in range(3 * (aloc[a] - 2) * 3, 3 * (aloc[a] + 3) * 3):
+                            for j in range(3 * (aloc[b] - 2) * 3, 3 * (aloc[b] + 3) * 3):
                                 aligs.append((i, j))
 
-        for i in range(qr.size[0] - 24):
-            for j in range(qr.size[1] - 24):
+        for i in range(qr.size[0] - 24 * 3):
+            for j in range(qr.size[1] - 24 * 3):
                 if not (
-                        (i in (18, 19, 20))
-                        or (j in (18, 19, 20))
-                        or (i < 24 and j < 24)
-                        or (i < 24 and j > qr.size[1] - 49)
-                        or (i > qr.size[0] - 49 and j < 24)
+                    # 0
+                        (i in range(54, 61))
+                        or (j in range(54, 61))
+                        or (i < 24 * 3 and j < 24 * 3)
+                        or (i < 24 * 3 and j > qr.size[1] - 49 * 3)
+                        or (i > qr.size[0] - 49 * 3 and j < 24 * 3)
                         or ((i, j) in aligs)
-                        or (i % 3 == 1 and j % 3 == 1)
+                        or (4 <= i % 9 <= 6 and 4 <= j % 9 <= 6)
                         or (bg0.getpixel((i, j))[3] == 0)
                 ):
                     # bg中的以下位置像素不要叠在qr上：
@@ -100,11 +110,11 @@ def run(words, version=1, level='H', picture=None, colorized=False, contrast=1.0
                     # 5. i in (18, 19, 20)，竖线
                     # 6. j in (18, 19, 20)，横线
                     # 7. i % 3 == 1 and j % 3 == 1，每个九宫格的左上角
-                    qr.putpixel((i + 12, j + 12), bg.getpixel((i, j)))
+                    qr.putpixel((i + 12 * 3, j + 12 * 3), bg.getpixel((i, j)))
 
         qr_name = os.path.join(save_dir, os.path.splitext(os.path.basename(bg_name))[
             0] + '_qrcode.png') if not save_name else os.path.join(save_dir, save_name)
-        qr.resize((qr.size[0] * 3, qr.size[1] * 3)).save(qr_name)
+        qr.save(qr_name)
         return qr_name
 
     tempdir = os.path.join(os.path.expanduser('~'), '.myqr')

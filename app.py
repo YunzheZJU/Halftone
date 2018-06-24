@@ -45,7 +45,7 @@ def calculate():
         # Process and get result
         try:
             filename = run_halftone(words=text, version=version, level=level, brightness=brightness, contrast=contrast,
-                                    colorized=True, picture=os.path.join(config.GLOBAL['TEMP_PATH'], filename))
+                                    colorized=False, picture=os.path.join(config.GLOBAL['TEMP_PATH'], filename))
             # Output
             result = {
                 'status': 1,
