@@ -137,7 +137,7 @@ def run(words, version=1, level='H', picture=None, colorized=False, contrast=1.0
             ims = [imageio.imread(pic) for pic in imsname]
             qr_name = os.path.join(save_dir, os.path.splitext(os.path.basename(picture))[
                 0] + '_qrcode.gif') if not save_name else os.path.join(save_dir, save_name)
-            imageio.mimwrite(qr_name, ims, '.gif', **{'duration': duration / 1000})
+            imageio.mimwrite(qr_name, ims, '.gif', **{'duration': duration / 1000.0})
         elif picture:
             qr = Image.open(qr_name)
             qr.save(os.path.join(save_dir, 'qroriginal.png'))
